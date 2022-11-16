@@ -1,8 +1,7 @@
-# Set the input
-number = 5
-
-# Multiply by two
-result = number * 2
+def multiply(number: int, multiplier: int):
+    """Multiply number by multiplier."""
+    return number * multiplier
+    
 
 # Display the result
-print(result)
+print(multiply(5, 2))
