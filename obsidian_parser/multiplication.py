@@ -8,7 +8,3 @@ class Multiplication:
         """Multiply number by multiplier."""
         return number * self.multiplier
 
-
-# Display the result
-multipication = Multiplication(5)
-print(multipication.multiply(2))
