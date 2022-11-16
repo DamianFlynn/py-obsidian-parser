@@ -1,5 +1,5 @@
 # Import Multiplication from your library
-from obsidian_parser.multiplication import Multiplication
+from obsidian_parser import Multiplication
 
 # Instantiate a Multiplication object
 multiplication = Multiplication(2)
