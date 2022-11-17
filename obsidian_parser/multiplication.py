@@ -1,3 +1,6 @@
+# Importing NumPy as "np"
+import numpy as np
+
 class Multiplication:
     """
     Instantiate a multiplication operation.
@@ -15,12 +18,13 @@ class Multiplication:
     def multiply(self, number: float) -> float:
         """
         Multiply a given number by the multiplier.
-        
+
         :param number: The number to multiply.
         :type number: float
     
         :return: The result of the multiplication.
         :rtype: float
         """
-        return number * self.multiplier
+        # Using NumPy .dot() to multiply the numbers
+        return np.dot(number, self.multiplier)
 
