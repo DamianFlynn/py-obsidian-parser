@@ -36,5 +36,5 @@ setup(
     ],
     packages=["obsidian_parser"],
     include_package_data=True,
-    install_requires=["numpy"]
+    install_requires=["numpy","python-frontmatter"]
 )

@@ -5,7 +5,11 @@ import os
 import re
 from random import seed,randint
 from typing import TypedDict
+import frontmatter
 # from obsidian_parser import WikiParser
+
+
+
 
 class ObsidianParser:
     """Obsidian Parser class."""
@@ -205,7 +209,7 @@ class ObsidianParser:
             # Update the link in the Hugo Page.
             hugo_link = f'![{link["text"]}]({link["link"]})'
             wiki_link = link["source"]
-            note_content = note_content.replace(wiki_link, hugo_link)
+            #note_content = note_content.replace(wiki_link, hugo_link)
 
             # Write the Updated Page content.
             with open(os.path.join(hugo_page), "w", encoding = "utf-8") as f:
@@ -229,15 +233,23 @@ class ObsidianParser:
                 "wiki_link": match.group(),
             }
 
+
             if "|" in match.group(1):
                 out["link"], out["text"] = match.group(1).split("|")
             else:
                 out["link"] = match.group(1)
                 out["text"] = match.group(1)
 
+            # Check the Links resolve correctly
+            if out["link"].startswith(self.vault_content_dir):
+                out["link"] = out["link"][len(self.vault_content_dir) + 1 :]
+
             # if the link ends with `_index` remove it
             if out["link"].endswith("_index"):
                 out["link"] = out["link"][:-6]
+
+            if out["text"].startswith(self.vault_content_dir):
+                out["text"] = out["text"][len(self.vault_content_dir) + 1 :]
 
             wiki_links.append(out)
         return wiki_links
@@ -249,6 +261,7 @@ class ObsidianParser:
         """
         # if the links contains a link to a heading, convert the heading part to
         # lower case and replace spaces by minus
+
         link_seperated = wiki_link["link"].split("#", 1)
         if len(link_seperated) > 1:
             link_combined = "#".join(
@@ -256,7 +269,8 @@ class ObsidianParser:
             )
         else:
             link_combined = wiki_link["link"]
-        hugo_link = f'[{wiki_link["text"]}]({{{{< ref "{link_combined}" >}}}})'
+        #hugo_link = f'[{wiki_link["text"]}]({{{{< ref "{link_combined}" >}}}})'
+        hugo_link = f'[{wiki_link["text"]}]({link_combined})'
         return hugo_link
 
 
@@ -271,6 +285,42 @@ class ObsidianParser:
         return text
 
 
+    def check_frontmatter(self, hugo_page: str):
+        post = frontmatter.loads(hugo_page)
+
+        #first_heading = re.search(r"^# (.*)", post.content, re.MULTILINE)
+        title_heading = re.search(r"^# (.*)", post.content, re.MULTILINE)
+        if title_heading:
+            title_heading = title_heading.group(1)
+            print('First Match = {}'.format(title_heading))
+        else:
+            print('Not Found')
+
+
+        newpost  = f"---\n"
+        
+        newpost += f"title: {post['title']}\n" if 'title' in post.keys() else  f"title: {title_heading}\n"
+        newpost += f"type: {post['type']}\n" if 'type' in post.keys() else  f"type: article \n"
+        if 'subtitle' in post.keys(): newpost += f"subtitle: {post['subtitle']}\n"
+        if 'date' in post.keys(): newpost += f"date: {post['date']}\n"
+        if 'toc' in post.keys(): newpost += f"toc: {post['toc']}\n"
+        if 'years' in post.keys(): newpost += f"year: {post['years']}\n"
+        if 'series' in post.keys(): newpost += f"series: {post['series']}\n"
+        newpost += f"categories: {post['categories']}\n" if 'categories' in post.keys() else  f"categories: ['todo'] \n"
+        if 'tags' in post.keys(): 
+            newpost += f"tags: {post['tags']}\n" if post['tags'] != [] else  f"tags: ['untagged'] \n"
+        else:
+            newpost += f"tags: ['untagged'] \n"
+        newpost += f"draft: {post['draft']}\n" if 'draft' in post.keys() else  f"draft: false \n"
+        if 'lastmod' in post.keys(): newpost += f"lastmod: {post['lastmod']}\n"
+        if 'url' in post.keys(): newpost += f"url: {post['url']}\n"
+        if 'image' in post.keys(): newpost += f"image: {post['image']}\n"
+        newpost += f"toc: {post['toc']}\n" if 'toc' in post.keys() else  f"toc: false \n"
+        newpost += f"comments: {post['comments']}\n" if 'comments' in post.keys() else  f"comments: false \n"
+        newpost += f"---\n\n"
+        newpost += post.content
+        return newpost
+
     def reformat_article(self, hugo_page: str) -> None:
         """Reformat the Hugo Page."""
         print(f"  Reformatting Hugo page")
@@ -281,8 +331,9 @@ class ObsidianParser:
 
         # Replace wiki links with Hugo links.
         #TODO: This creates a ref which includes the complete local uri and not the hugo ref
-        #note_content = self.replace_wiki_links(note_content)
+        note_content = self.replace_wiki_links(note_content)
         tags = self.get_note_hashtags(note_content)
+        note_content = self.check_frontmatter(note_content)
 
         # Write the Updated Page content.
         with open(os.path.join(hugo_page), "w", encoding = "utf-8") as f:

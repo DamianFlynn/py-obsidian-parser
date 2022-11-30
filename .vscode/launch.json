@@ -19,6 +19,22 @@
                 "--export-dir",
                 "knowledge/blog"
             ]
+        },
+        {
+            "name": "Python: Site Testing File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--hugo-content-dir",
+                "/Users/damianflynn/Sites/damianflynn/content",
+                "--obsidian-vault-dir",
+                "/Users/damianflynn/Sites/obsidian"
+                "--export-dir",
+                "share"
+            ]
         }
     ]
 }
