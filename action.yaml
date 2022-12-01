@@ -24,9 +24,9 @@ runs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'  
-        cache: 'pip'
+        # cache: 'pip'
         # cache-dependency-path: "${{ github.action_path }}/requirements.txt"
-        architecture: "x64"
+        # architecture: "x64"
 
     - name: Install python filters
       shell: bash
