@@ -23,14 +23,17 @@ runs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'  
-    - name: Install Dependencies
-      run: pip install -r requirements.txt
-      shell: bash
-    - name: Export Obsidian Notes
+    - uses: BSFishy/pip-action@v1
+      with:
+        requirements: requirements.txt
+    - name: List python packages
       shell: bash
       run: |
-              echo "INPUT_NUM=${{ inputs.num }}" >> $GITHUB_ENV
-    - name: Fetch the number's square
+        python -m pip list
+    # - name: Install Dependencies
+    #   run: pip install -r requirements.txt
+    #   shell: bash
+    - name: Export Obsidian Notes
       id: export-notes
       shell: bash
       run: python main.py --hugo-content-dir ${{ inputs.hugo-content-dir }} --obsidian-vault-dir ${{ inputs.obsidian-vault-dir }} --export-dir ${{ inputs.export-dir }}
