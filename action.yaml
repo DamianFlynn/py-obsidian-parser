@@ -19,13 +19,25 @@ inputs:
 runs:
   using: 'composite'
   steps:
+
     - name: Install Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'  
-    - uses: BSFishy/pip-action@v1
-      with:
-        requirements: requirements.txt
+        cache: 'pip'
+        cache-dependency-path: "${{ github.action_path }}/requirements.txt"
+
+
+    # - uses: actions/cache@v3
+    #   with:
+    #     path: ~/.cache/pip
+    #     key: ${{ runner.os }}-pip
+    # - run: pip install 'mydependency<2'
+    #   shell: bash
+    # - run: ${{ github.action_path }}/myscript
+    #   shell: bash
+
+
     - name: List python packages
       shell: bash
       run: |
