@@ -54,4 +54,4 @@ runs:
     - name: Export Obsidian Notes
       id: export-notes
       shell: bash
-      run: python main.py --hugo-content-dir ${{ inputs.hugo-content-dir }} --obsidian-vault-dir ${{ inputs.obsidian-vault-dir }} --export-dir ${{ inputs.export-dir }}
+      run: python ${{ github.action_path }}/main.py --hugo-content-dir ${{ inputs.hugo-content-dir }} --obsidian-vault-dir ${{ inputs.obsidian-vault-dir }} --export-dir ${{ inputs.export-dir }}
