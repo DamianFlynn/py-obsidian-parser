@@ -1,5 +1,5 @@
 ---
-name: 'PyObsidianParser'
+name: 'py-obsidian-parser'
 description: 'A GitHub Action that takes obsidian notes and prepairs for hugo or other static generators'
 inputs:
   hugo-content-dir:
