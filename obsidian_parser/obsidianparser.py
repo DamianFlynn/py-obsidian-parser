@@ -207,9 +207,10 @@ class ObsidianParser:
                     link["link"] = "opps-missing-image.png"
                     
             # Update the link in the Hugo Page.
-            hugo_link = f'![{link["text"]}]({link["link"]})'
+            hugo_link = f'![{link["text"]}]({link["link"]})' # HTML Link
+            hugo_link = f'![[{link["link"]}|{link["text"]}]]' # Wiki Link
             wiki_link = link["source"]
-            #note_content = note_content.replace(wiki_link, hugo_link)
+            note_content = note_content.replace(wiki_link, hugo_link)
 
             # Write the Updated Page content.
             with open(os.path.join(hugo_page), "w", encoding = "utf-8") as f:
@@ -288,11 +289,13 @@ class ObsidianParser:
     def check_frontmatter(self, hugo_page: str):
         post = frontmatter.loads(hugo_page)
 
+        post_body = post.content
         #first_heading = re.search(r"^# (.*)", post.content, re.MULTILINE)
         title_heading = re.search(r"^# (.*)", post.content, re.MULTILINE)
         if title_heading:
             title_heading = title_heading.group(1)
             print('First Match = {}'.format(title_heading))
+            post_body = post_body.replace(f'# {title_heading}\n', '')
         else:
             print('Not Found')
 
@@ -318,7 +321,7 @@ class ObsidianParser:
         newpost += f"toc: {post['toc']}\n" if 'toc' in post.keys() else  f"toc: false \n"
         newpost += f"comments: {post['comments']}\n" if 'comments' in post.keys() else  f"comments: false \n"
         newpost += f"---\n\n"
-        newpost += post.content
+        newpost += post_body
         return newpost
 
     def reformat_article(self, hugo_page: str) -> None:

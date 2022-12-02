@@ -31,7 +31,7 @@
                 "--hugo-content-dir",
                 "/Users/damianflynn/Sites/damianflynn/content",
                 "--obsidian-vault-dir",
-                "/Users/damianflynn/Sites/obsidian"
+                "/Users/damianflynn/vault/Cranium"
                 "--export-dir",
                 "share"
             ]
