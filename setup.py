@@ -15,7 +15,7 @@ with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
 # This call to setup() does all the work
 setup(
     name="obsidian-parser",
-    version="0.3.1",
+    version="0.3.2",
     description="Demo library",
     long_description=long_description,
     long_description_content_type="text/markdown",
