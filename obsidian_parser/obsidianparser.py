@@ -207,8 +207,8 @@ class ObsidianParser:
                     link["link"] = "opps-missing-image.png"
                     
             # Update the link in the Hugo Page.
-            hugo_link = f'![{link["text"]}]({link["link"]})' # HTML Link
-            hugo_link = f'![[{link["link"]}|{link["text"]}]]' # Wiki Link
+            hugo_link = f'![{link["text"]}](./{link["link"]})' # HTML Link
+            hugo_link = f'![[./{link["link"]}|{link["text"]}]]' # Wiki Link
             wiki_link = link["source"]
             note_content = note_content.replace(wiki_link, hugo_link)
 
