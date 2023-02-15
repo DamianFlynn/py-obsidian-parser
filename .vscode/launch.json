@@ -29,7 +29,7 @@
             "justMyCode": true,
             "args": [
                 "--hugo-content-dir",
-                "/Users/damianflynn/Sites/damianflynn/content",
+                "/Users/damianflynn/Sites/garden/content",
                 "--obsidian-vault-dir",
                 "/Users/damianflynn/vault/Cranium"
                 "--export-dir",

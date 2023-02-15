@@ -15,8 +15,8 @@ with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
 # This call to setup() does all the work
 setup(
     name="obsidian-parser",
-    version="0.3.2",
-    description="Demo library",
+    version="0.3.3",
+    description="Grabs all the notes from an Obsidian vault and processes them into a Hugo content directory.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://obsidian-parser.readthedocs.io/",

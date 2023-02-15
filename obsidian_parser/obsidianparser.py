@@ -305,9 +305,9 @@ class ObsidianParser:
         
         newpost += f"title: {post['title']}\n" if 'title' in post.keys() else  f"title: {title_heading}\n"
         newpost += f"type: {post['type']}\n" if 'type' in post.keys() else  f"type: article \n"
-        if 'subtitle' in post.keys(): newpost += f"subtitle: {post['subtitle']}\n"
+        newpost += f"layout: {post['layout']}\n" if 'layout' in post.keys() else  f"layout: post \n"
+        if 'description' in post.keys(): newpost += f"description: {post['description']}\n"
         if 'date' in post.keys(): newpost += f"date: {post['date']}\n"
-        if 'toc' in post.keys(): newpost += f"toc: {post['toc']}\n"
         if 'years' in post.keys(): newpost += f"year: {post['years']}\n"
         if 'series' in post.keys(): newpost += f"series: {post['series']}\n"
         newpost += f"categories: {post['categories']}\n" if 'categories' in post.keys() else  f"categories: ['todo'] \n"
@@ -315,11 +315,18 @@ class ObsidianParser:
             newpost += f"tags: {post['tags']}\n" if post['tags'] != [] else  f"tags: ['untagged'] \n"
         else:
             newpost += f"tags: ['untagged'] \n"
+        if 'categories' in post.keys(): 
+            newpost += f"categories: {post['categories']}\n" if post['categories'] != [] else  f"categories: ['reflection'] \n"
+        else:
+            newpost += f"categories: ['reflection'] \n"
         newpost += f"draft: {post['draft']}\n" if 'draft' in post.keys() else  f"draft: false \n"
         if 'lastmod' in post.keys(): newpost += f"lastmod: {post['lastmod']}\n"
         if 'url' in post.keys(): newpost += f"url: {post['url']}\n"
+        # featuredImage: {bundle}/{imageName}.png 
         if 'image' in post.keys(): newpost += f"image: {post['image']}\n"
+        if 'image_caption' in post.keys(): newpost += f"image_caption: {post['image_caption']}\n"
         newpost += f"toc: {post['toc']}\n" if 'toc' in post.keys() else  f"toc: false \n"
+        newpost += f"featured: {post['featured']}\n" if 'featured' in post.keys() else  f"featured: false \n"
         newpost += f"comments: {post['comments']}\n" if 'comments' in post.keys() else  f"comments: false \n"
         newpost += f"---\n\n"
         newpost += post_body

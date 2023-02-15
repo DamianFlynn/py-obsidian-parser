@@ -7,7 +7,7 @@ from obsidian_parser import ObsidianParser
 import argparse
 import os
 
-__version__ = "0.3.2"
+__version__ = "0.3.3"
 
 parser = argparse.ArgumentParser()
 
@@ -38,7 +38,7 @@ parser.add_argument(
 def main():
     """Run the CLI."""
     args = parser.parse_args()
-    print("Obsidian Parser CLI")
+    print(f"Obsidian Parser CLI {__version__}")
     if not args.hugo_content_dir or not os.path.isdir(args.hugo_content_dir):
         parser.error("The hugo content directory does not exist.")
     if not args.obsidian_vault_dir or not os.path.isdir(args.obsidian_vault_dir):
