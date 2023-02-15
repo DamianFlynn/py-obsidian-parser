@@ -7,7 +7,7 @@ from obsidian_parser import ObsidianParser
 import argparse
 import os
 
-__version__ = "0.3.3"
+__version__ = "0.3.5"
 
 parser = argparse.ArgumentParser()
 

@@ -315,10 +315,10 @@ class ObsidianParser:
             newpost += f"tags: {post['tags']}\n" if post['tags'] != [] else  f"tags: ['untagged'] \n"
         else:
             newpost += f"tags: ['untagged'] \n"
-        if 'categories' in post.keys(): 
-            newpost += f"categories: {post['categories']}\n" if post['categories'] != [] else  f"categories: ['reflection'] \n"
+        if 'authors' in post.keys(): 
+            newpost += f"authors: {post['authors']}\n" if post['authors'] != [] else  f"authors: ['damian'] \n"
         else:
-            newpost += f"categories: ['reflection'] \n"
+            newpost += f"authors: ['damian'] \n"
         newpost += f"draft: {post['draft']}\n" if 'draft' in post.keys() else  f"draft: false \n"
         if 'lastmod' in post.keys(): newpost += f"lastmod: {post['lastmod']}\n"
         if 'url' in post.keys(): newpost += f"url: {post['url']}\n"
